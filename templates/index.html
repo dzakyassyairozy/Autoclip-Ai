@@ -1,1 +1,157 @@
 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClipDrop AI - Auto Clip Viral</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
+        
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background-color: #06060f; 
+            color: #e8e8f0; 
+            text-align: center; 
+            padding: 20px;
+            margin: 0;
+        }
+        .container { 
+            max-width: 550px; 
+            margin: 50px auto; 
+            background: #12121f; 
+            padding: 35px; 
+            border-radius: 16px; 
+            box-shadow: 0 0 40px rgba(124,58,237,0.15); 
+            border: 1px solid rgba(124,58,237,0.25);
+        }
+        h1 { 
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            margin-bottom: 5px;
+            background: linear-gradient(135deg, #7c3aed, #00f2ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p.subtitle { color: #666; font-size: 14px; margin-bottom: 25px; }
+        
+        input[type="text"] { 
+            width: 100%; 
+            padding: 14px; 
+            margin: 10px 0; 
+            border-radius: 10px; 
+            border: 1px solid rgba(124,58,237,0.2); 
+            background: rgba(255,255,255,0.03); 
+            color: #fff; 
+            box-sizing: border-box; 
+            font-size: 14px;
+        }
+        input[type="text"]:focus {
+            border-color: #00f2ea;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0,242,234,0.2);
+        }
+        .file-box {
+            background: rgba(124,58,237,0.05);
+            border: 1px dashed rgba(124,58,237,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        button { 
+            width: 100%; 
+            padding: 14px; 
+            background: linear-gradient(135deg, #7c3aed, #5b21b6); 
+            color: #fff; 
+            border: none; 
+            border-radius: 10px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            font-size: 15px; 
+            margin-top: 10px;
+            transition: all 0.2s;
+        }
+        button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(124,58,237,0.4);
+        }
+        .card { 
+            background: rgba(255,255,255,0.02); 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin-top: 25px; 
+            border: 1px solid rgba(52,211,153,0.3);
+            text-align: left; 
+        }
+        .card h3 { color: #34d399; margin-top: 0; font-size: 18px; }
+        .meta-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 15px;
+        }
+        .meta-info span strong { color: #a78bfa; }
+        .btn-download { 
+            background: linear-gradient(135deg, #00f2ea, #7c3aed); 
+            color: #06060f; 
+            text-decoration: none; 
+            display: block; 
+            text-align: center; 
+            padding: 14px; 
+            border-radius: 10px; 
+            font-weight: 700; 
+            margin-top: 20px; 
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+        .btn-download:hover {
+            box-shadow: 0 0 15px rgba(0,242,234,0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ClipDrop AI</h1>
+        <p class="subtitle">Turn Long Videos Into Viral Shorts Instantly</p>
+        
+        <form action="/process" method="post" enctype="multipart/form-data">
+            <input type="text" name="api_key" placeholder="🔑 Masukkan Gemini API Key Lu" required>
+            <input type="text" name="url_youtube" placeholder="🔗 Masukkan Tautan Link YouTube (Opsional)">
+            
+            <div class="file-box">
+                <p style="font-size: 12px; color: #a78bfa; margin: 0 0 10px 0; font-weight: 600;">ATAU UPLOAD DARI FILE HP:</p>
+                <input type="file" name="uploaded_file" accept="video/*,audio/*" style="color: #666; font-size: 12px;">
+            </div>
+            
+            <button type="submit">Analyze & Clip ✨</button>
+        </form>
+
+        {% if error %}
+            <p style="color: #ff3333; margin-top: 20px; font-weight: 600; font-size: 14px;">⚠️ {{ error }}</p>
+        {% endif %}
+
+        {% if result %}
+            <div class="card">
+                <h3>🎉 Clip Ready for Export!</h3>
+                <p style="font-size: 14px; line-height: 1.6; margin: 0; color: #e8e8f0;">
+                    <strong>AI Hook Hook Found:</strong> <br>
+                    <span style="font-style: italic; color: #ccc;">"{{ result.kalimat }}"</span>
+                </p>
+                
+                <div class="meta-info">
+                    <span>⏱️ Duration: <strong>9:16 Reframe</strong></span>
+                    <span>📈 Viral Score: <strong style="color: #00f2ea;">92/99</strong></span>
+                    <span>🎬 Segment: <strong>{{ result.waktu }}</strong></span>
+                    <span>💎 Quality: <strong>4K Max</strong></span>
+                </div>
+                
+                <a href="/download" class="btn-download">⬇️ DOWNLOAD VIDEO KE GALERI</a>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
