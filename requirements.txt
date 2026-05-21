@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+jinja2
+python-multipart
+google-genai
+youtube-transcript-api
+yt-dlp
+openai-whisper
